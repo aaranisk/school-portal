@@ -1,0 +1,23 @@
+
+.ag-theme-alpine .ag-cell {
+    display: flex;
+    align-items: center;
+    text-align: left !important;
+}
+
+.ag-theme-alpine .ag-header {
+    background-color: #F7F7F7 !important;
+    border: none;
+}
+
+.custom-classes-grid.ag-theme-alpine {
+    border: none !important;
+}
+
+.custom-classes-grid.ag-theme-alpine .ag-root-wrapper {
+    border: none !important;
+}
+
+.custom-classes-grid.ag-theme-alpine .ag-root {
+    border: none !important;
+}
