@@ -10,12 +10,12 @@ const DefaultCard = ({setAddForm, type}) => {
             alignItems: 'center',
             boxShadow: 5,
             borderRadius: 4,
-            width: '1344px',
-            height: '636px',
+            height: '60vh',
             color: 'black',
         }}>
-            <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                <Typography>{`There are no existing ${type === "class" ? "classes" : "teachers"} yet`}</Typography>
+            <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px'}}>
+                <Typography
+                    sx={{fontWeight: 800}}>{`There are no existing ${type === "class" ? "classes" : "teachers"} yet`}</Typography>
                 <Button
                     startIcon={<AddIcon/>}
                     sx={{
@@ -24,6 +24,7 @@ const DefaultCard = ({setAddForm, type}) => {
                         textTransform: 'none',
                         p: '12px 16px',
                         borderRadius: '8px'
+
                     }} onClick={() => {
                     setAddForm(true)
                 }}>{`Add ${type === "class" ? "Class" : "Teacher"}`}</Button>
