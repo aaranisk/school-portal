@@ -3,7 +3,7 @@ import {Box, Button} from '@mui/material';
 import {useForm} from 'react-hook-form';
 import FormSelect from "../../components/FormInputs/FormSelect.jsx";
 import FormTextField from "../../components/FormInputs/FormTextInput.jsx";
-import {Add as AddIcon} from '@mui/icons-material';
+import {ArrowBack} from '@mui/icons-material';
 
 const AddClassForm = ({setDisplayAddClassForm, classes}) => {
     const classLevels = ['Primary 1', 'Primary 2', 'Primary 3', 'Primary 4', 'Primary 5', 'Primary 6'];
@@ -68,14 +68,20 @@ const AddClassForm = ({setDisplayAddClassForm, classes}) => {
 
             </Box>
             <Box sx={{display: 'flex', gap: 2, alignItems: 'flex-end', justifyContent: 'flex-end'}}>
-                <Button sx={{border: "1px solid #135BB4"}} onClick={() => {
-                    setDisplayAddClassForm(false)
-                }}>Back</Button>
                 <Button
-                    startIcon={<AddIcon/>}
+                    startIcon={<ArrowBack/>}
+                    sx={{
+                        border: "1px solid #135BB4",
+                        textTransform: 'none',
+                        fontWeight: 600
+                    }}
+                    onClick={() => {
+                        setDisplayAddClassForm(false)
+                    }}>Back</Button>
+                <Button
                     type="submit"
                     variant="contained"
-                    sx={{mt: 2, backgroundColor: '#135BB4', textTransform: 'none',}}
+                    sx={{mt: 2, backgroundColor: '#135BB4', textTransform: 'none'}}
                 >
                     Add Class
                 </Button>

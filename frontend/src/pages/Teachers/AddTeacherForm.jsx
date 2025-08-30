@@ -2,7 +2,7 @@ import {Box, Button} from "@mui/material";
 import FormSelect from "../../components/FormInputs/FormSelect.jsx";
 import FormTextField from "../../components/FormInputs/FormTextInput.jsx";
 import React from "react";
-import {Add as AddIcon} from '@mui/icons-material';
+import {ArrowBack} from '@mui/icons-material';
 import {useForm} from "react-hook-form";
 
 const AddTeacherForm = ({setDisplayAddTeacherForm}) => {
@@ -82,14 +82,20 @@ const AddTeacherForm = ({setDisplayAddTeacherForm}) => {
 
             </Box>
             <Box sx={{display: 'flex', gap: 2, alignItems: 'flex-end', justifyContent: 'flex-end'}}>
-                <Button sx={{border: "1px solid #135BB4"}} onClick={() => {
-                    setDisplayAddTeacherForm(false)
-                }}>Back</Button>
                 <Button
-                    startIcon={<AddIcon/>}
+                    startIcon={<ArrowBack/>}
+                    sx={{
+                        border: "1px solid #135BB4",
+                        textTransform: 'none',
+                        fontWeight: 600
+                    }}
+                    onClick={() => {
+                        setDisplayAddTeacherForm(false)
+                    }}>Back</Button>
+                <Button
                     type="submit"
                     variant="contained"
-                    sx={{mt: 2, backgroundColor: '#135BB4', textTransform: 'none',}}
+                    sx={{mt: 2, backgroundColor: '#135BB4', textTransform: 'none'}}
                 >
                     Add Teacher
                 </Button>
