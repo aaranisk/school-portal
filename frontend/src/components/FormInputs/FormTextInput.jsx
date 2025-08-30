@@ -1,5 +1,5 @@
 import {Controller} from "react-hook-form";
-import {TextField} from "@mui/material";
+import {Box, TextField, Typography} from "@mui/material";
 
 const FormTextField = ({name, control, label, rules = {}}) => {
     return (
@@ -8,17 +8,26 @@ const FormTextField = ({name, control, label, rules = {}}) => {
             control={control}
             rules={rules}
             render={({field, fieldState}) => (
-                <TextField
-                    {...field}
-                    label={label}
-                    fullWidth
-                    margin="normal"
-                    error={!!fieldState.error}
-                    helperText={fieldState.error ? fieldState.error.message : ""}
-                    sx={{width: '464px'}}
-                    InputLabelProps={{shrink: true}}
-                    placeholder={label}
-                />
+                <Box sx={{display: "flex", flexDirection: 'column', alignItems: "flex-start", gap: "1px", mb: 1}}>
+                    <Typography
+                        variant="body2"
+                        sx={{
+                            fontWeight: 600,
+                            color: '#333'
+                        }}
+                    >
+                        {label}
+                    </Typography>
+
+                    <TextField
+                        {...field}
+                        fullWidth
+                        error={!!fieldState.error}
+                        helperText={fieldState.error ? fieldState.error.message : ""}
+                        sx={{width: '464px', height: '48px'}}
+                        placeholder={label}
+                    />
+                </Box>
             )}
         />
     );

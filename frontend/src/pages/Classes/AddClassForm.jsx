@@ -63,7 +63,7 @@ const AddClassForm = ({setDisplayAddClassForm, classes}) => {
                     control={control}
                     options={teachers}
                     rules={{required: 'Form Teacher is required.'}}
-                    placeholder={"Assign a class teacher"}
+                    placeholder={"Assign a form teacher"}
                 />
 
             </Box>
