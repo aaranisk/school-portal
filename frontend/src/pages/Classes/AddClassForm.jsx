@@ -31,7 +31,6 @@ const AddClassForm = ({setDisplayAddClassForm, classes}) => {
                     display: 'flex',
                     flexDirection: 'column',
                     gap: 2,
-                    width: '1344px',
                     p: 4,
                     boxShadow: 5,
                     borderRadius: 2,

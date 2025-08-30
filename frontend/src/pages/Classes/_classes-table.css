@@ -21,3 +21,11 @@
 .custom-classes-grid.ag-theme-alpine .ag-root {
     border: none !important;
 }
+
+.ag-root-wrapper {
+    border: none !important;
+}
+
+.ag-row {
+    border-color: #E2E2E2;
+}

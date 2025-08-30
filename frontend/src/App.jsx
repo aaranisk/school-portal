@@ -11,9 +11,11 @@ function App() {
             <ModuleBar/>
             <Box sx={{
                 mt: 10,
+                ml: '5rem',
+                mr: '5rem',
                 bgcolor: 'white',
-                display: 'flex',
-                justifyContent: 'center',
+                width: 'calc(100vw - 10rem)',
+                maxWidth: 'none'
             }}>
                 <Routes>
                     <Route path="/teachers" element={<Teachers/>}/>

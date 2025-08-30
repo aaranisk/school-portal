@@ -29,10 +29,10 @@ const TeachersTable = ({teachers, se}) => {
             alignItems: 'center',
             boxShadow: 5,
             borderRadius: 4,
-            width: '1344px',
-            border: "none"
+            border: "none",
+            p: '32px'
         }}>
-            <div className="ag-theme-alpine" style={{height: 600, width: '100%'}}>
+            <div className="ag-theme-alpine" style={{height: '60vh', width: '100%'}}>
                 <AgGridReact
                     rowData={teachers}
                     columnDefs={columns}
