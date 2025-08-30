@@ -1,0 +1,20 @@
+.nav-button {
+    color: #135bb4 !important;
+    font-weight: 600 !important;
+    position: relative;
+}
+
+.nav-button:hover {
+    color: #0d47a1 !important;
+}
+
+.nav-button.active::after {
+    content: "";
+    position: absolute;
+    bottom: -16px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background-color: #135bb4;
+    z-index: 1;
+}

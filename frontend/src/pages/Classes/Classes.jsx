@@ -21,7 +21,7 @@ const Classes = () => {
         {classLevel: 'Primary 3', className: 'B', formTeacher: 'Mrs. Lee'},
         {classLevel: 'Primary 1', className: 'A', formTeacher: 'Mr. Sam'},]
     return <Box sx={{display: "flex", flexDirection: 'column'}}>
-        <Box sx={{display: "flex", justifyContent: "space-between"}}>
+        <Box sx={{display: "flex", justifyContent: "space-between", mb: 2}}>
             <Typography variant="h6" component={Link} to="/" color="inherit" sx={{
                 textDecoration: 'none',
                 color: 'black',
@@ -31,7 +31,7 @@ const Classes = () => {
                 {displayAddClassForm ? 'Add Class' : 'Classes'}
             </Typography>
             {classes.length > 0 && !displayAddClassForm && (
-                <Box sx={{display: 'flex', justifyContent: 'flex-end', mb: 2}}>
+                <Box sx={{display: 'flex', justifyContent: 'flex-end'}}>
                     <Button
                         variant="contained"
                         startIcon={<AddIcon/>}

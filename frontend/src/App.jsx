@@ -1,5 +1,5 @@
 import {BrowserRouter as Router, Navigate, Route, Routes} from 'react-router-dom';
-import ModuleBar from './components/ModuleBar.jsx';
+import ModuleBar from './components/ModuleBar/ModuleBar.jsx';
 import Teachers from './pages/Teachers';
 import Classes from './pages/Classes/Classes.jsx';
 import {Box} from "@mui/material";
