@@ -1,0 +1,126 @@
+import {Router} from "express";
+import logger from "../typeorm/logger/winston.js";
+import AppDataSource from "../datasource.js";
+import ClassEntity from "../typeorm/entities/class.entity.js";
+import TeacherEntity from "../typeorm/entities/teacher.entity.js";
+
+
+const router = Router();
+
+
+router.get("/", async (req, res) => {
+    try {
+        logger.log({
+            timestamp: new Date(),
+            message: "Fetching all classes",
+            label: "classes",
+            level: "info"
+        });
+
+        const classRepository = AppDataSource.getRepository(ClassEntity);
+        const classes = await classRepository.find({
+            relations: ["formTeacher"],
+            select: {
+                level: true,
+                name: true,
+                formTeacher: {
+                    name: true
+                }
+            }
+        });
+
+        logger.log({
+            timestamp: new Date(),
+            message: `Successfully fetched ${classes.length} classes`,
+            label: "classes",
+            level: "info"
+        });
+        res.status(200).json({data: classes});
+
+    } catch (error) {
+        logger.log({
+            timestamp: new Date(),
+            error,
+            message: "Failed to fetch classes",
+            label: "classes",
+            level: "error"
+        });
+        res.status(500).json({error: "Failed to fetch classes"});
+    }
+});
+
+
+router.post("/", async (req, res) => {
+    try {
+        const {level, name, teacherEmail} = req.body;
+
+        logger.log({
+            timestamp: new Date(),
+            message: `Creating new class: ${level} ${name}`,
+            label: "classes",
+            level: "info"
+        });
+        console.log(req.body)
+        // Validation
+        if (!level || !name || !teacherEmail) {
+            logger.log({
+                timestamp: new Date(),
+                message: "Validation failed: Missing required fields",
+                label: "classes",
+                level: "warn"
+            });
+            return res.status(400).json({error: "All fields are required"});
+        }
+
+        const classRepository = AppDataSource.getRepository(ClassEntity);
+        const teacherRepository = AppDataSource.getRepository(TeacherEntity);
+
+        const teacher = await teacherRepository.findOne({
+            where: {email: teacherEmail}
+        });
+
+        if (!teacher) {
+            logger.log({
+                timestamp: new Date(),
+                message: `Form teacher with email ${teacherEmail} not found`,
+                label: "classes",
+                level: "warn"
+            });
+            return res.status(400).json({error: "Form teacher not found"});
+        }
+
+        const classEntity = classRepository.create({
+            level,
+            name,
+            teacherEmail
+        });
+
+        const savedClass = await classRepository.save(classEntity);
+
+        const result = await classRepository.findOne({
+            where: {id: savedClass.id},
+            relations: ["formTeacher"]
+        });
+
+        logger.log({
+            timestamp: new Date(),
+            message: `Successfully created class: ${result.level} ${result.name} (ID: ${result.id})`,
+            label: "classes",
+            level: "info"
+        });
+
+        res.sendStatus(201)
+    } catch (error) {
+        logger.log({
+            timestamp: new Date(),
+            error,
+            message: "Failed to create class",
+            label: "classes",
+            level: "error"
+        });
+        res.status(500).json({error: "Failed to create class"});
+    }
+});
+
+
+export default router;
