@@ -12,7 +12,7 @@ const ClassesTable = ({classes}) => {
         {headerName: '#', valueGetter: 'node.rowIndex + 1', width: 104,},
         {headerName: 'Class Level', field: 'level', width: 300,},
         {headerName: 'Class Name', field: 'name', width: 300,},
-        {headerName: 'Form Teacher', field: 'formTeacher', flex: 1},
+        {headerName: 'Form Teacher', field: 'formTeacher.name', flex: 1},
     ];
 
     const defaultColDef = {

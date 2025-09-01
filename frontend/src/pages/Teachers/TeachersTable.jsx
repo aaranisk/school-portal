@@ -7,7 +7,7 @@ const TeachersTable = ({teachers, se}) => {
         {headerName: 'Name', field: 'name', flex: 1},
         {headerName: 'Subject', field: 'subject', flex: 1},
         {headerName: 'Email', field: 'email', flex: 1},
-        {headerName: 'Work Contact', field: 'workContact', flex: 1},
+        {headerName: 'Work Contact', field: 'contactNumber', flex: 1},
     ];
 
     const defaultColDef = {

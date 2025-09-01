@@ -4,8 +4,10 @@ import Teachers from './pages/Teachers/Teachers.jsx';
 import Classes from './pages/Classes/Classes.jsx';
 import {Box} from "@mui/material";
 import './App.css'
+import {useState} from "react";
 
 function App() {
+    const [displayAddTeacherForm, setDisplayAddTeacherForm] = useState(false);
     return (
         <Router>
             <ModuleBar/>
@@ -18,8 +20,9 @@ function App() {
                 maxWidth: 'none'
             }}>
                 <Routes>
-                    <Route path="/teachers" element={<Teachers/>}/>
-                    <Route path="/classes" element={<Classes/>}/>
+                    <Route path="/teachers" element={<Teachers displayAddTeacherForm={displayAddTeacherForm}
+                                                               setDisplayAddTeacherForm={setDisplayAddTeacherForm}/>}/>
+                    <Route path="/classes" element={<Classes setDisplayAddTeacherForm={setDisplayAddTeacherForm}/>}/>
                     <Route path="/" element={<Navigate to="/classes" replace/>}/>
                 </Routes>
 

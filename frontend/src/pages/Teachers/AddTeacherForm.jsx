@@ -4,8 +4,10 @@ import FormTextField from "../../components/FormInputs/FormTextInput.jsx";
 import React from "react";
 import {ArrowBack} from '@mui/icons-material';
 import {useForm} from "react-hook-form";
+import {useCreateTeacher} from "../../hooks/useTeachers.js";
 
 const AddTeacherForm = ({setDisplayAddTeacherForm}) => {
+    const createTeacherMutation = useCreateTeacher();
 
     const {handleSubmit, control, reset} = useForm({
         defaultValues: {
@@ -17,7 +19,7 @@ const AddTeacherForm = ({setDisplayAddTeacherForm}) => {
     });
     const subjects = ['English Language', 'Mother Tongue Language', 'Mathematics', 'Science', 'Art', 'Music', 'Physical Education', 'Social Studies', 'Character and Citizenship Education']
     const onSubmit = (data) => {
-        console.log("on submit")
+        createTeacherMutation.mutate(data);
         reset();
         setDisplayAddTeacherForm(false)
     };

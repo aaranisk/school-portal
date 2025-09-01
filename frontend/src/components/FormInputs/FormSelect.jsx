@@ -2,7 +2,7 @@ import React from 'react';
 import {Controller} from 'react-hook-form';
 import {Box, MenuItem, TextField, Typography} from '@mui/material';
 
-const FormSelect = ({name, label, control, options, rules, placeholder}) => {
+const FormSelect = ({name, label, control, options, rules, placeholder, renderValue, customMenuItem}) => {
     return (
         <Controller
             name={name}
@@ -40,15 +40,20 @@ const FormSelect = ({name, label, control, options, rules, placeholder}) => {
                                         textAlign: 'left',
                                         display: 'block'
                                     }}>{`${placeholderText}`}</span>;
-                                    return selected;
+                                    const selectedOption = options.find(opt => opt.email === selected || opt === selected);
+
+                                    if (!selectedOption || typeof selectedOption === "string") return selected;
+
+                                    return selectedOption.name;
                                 },
                             }}
                         >
-
                             {options.map((option) => (
-                                <MenuItem key={option} value={option}>
-                                    {option}
-                                </MenuItem>
+                                customMenuItem
+                                    ? customMenuItem(option)
+                                    : <MenuItem key={option} value={option}>
+                                        {renderValue ? renderValue(option) : option}
+                                    </MenuItem>
                             ))}
                         </TextField>
                     </Box>

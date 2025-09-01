@@ -1,14 +1,18 @@
 import React from 'react';
-import {Box, Button} from '@mui/material';
+import {Box, Button, MenuItem, Typography} from '@mui/material';
 import {useForm} from 'react-hook-form';
 import FormSelect from "../../components/FormInputs/FormSelect.jsx";
 import FormTextField from "../../components/FormInputs/FormTextInput.jsx";
 import {ArrowBack} from '@mui/icons-material';
+import {useTeachers} from "../../hooks/useTeachers.js";
+import {useNavigate} from "react-router-dom";
+import {useCreateClass} from "../../hooks/useClasses.js";
 
-const AddClassForm = ({setDisplayAddClassForm, classes}) => {
+const AddClassForm = ({setDisplayAddClassForm, classes, setDisplayAddTeacherForm}) => {
+    const createClassMutation = useCreateClass();
+    const navigate = useNavigate();
     const classLevels = ['Primary 1', 'Primary 2', 'Primary 3', 'Primary 4', 'Primary 5', 'Primary 6'];
-    const teachers = ['Mr. Smith', 'Ms. Johnson', 'Mrs. Lee'];
-
+    const {data: teachers} = useTeachers();
     const {handleSubmit, control, reset} = useForm({
         defaultValues: {
             level: '',
@@ -17,7 +21,7 @@ const AddClassForm = ({setDisplayAddClassForm, classes}) => {
         },
     });
     const onSubmit = (data) => {
-        classes.push(data)
+        createClassMutation.mutate(data)
         reset();
         setDisplayAddClassForm(false)
     };
@@ -61,10 +65,33 @@ const AddClassForm = ({setDisplayAddClassForm, classes}) => {
                     name="teacherEmail"
                     label="Form Teacher"
                     control={control}
-                    options={teachers}
+                    options={teachers?.length > 0 ? teachers : [{name: "No existing teachers.", email: ""}]}
                     rules={{required: 'Form Teacher is required.'}}
-                    placeholder={"Assign a form teacher"}
+                    placeholder="Assign a form teacher"
+                    customMenuItem={(option) => {
+                        if (!option.email) {
+                            return (
+                                <MenuItem key={option} value="" sx={{pointerEvents: 'auto'}}>
+                                    <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start'}}>
+                                        <Typography color="textPrimary">No existing teachers.</Typography>
+                                        <Typography
+                                            color="#75489F"
+                                            sx={{cursor: 'pointer'}}
+                                            onClick={() => {
+                                                setDisplayAddTeacherForm(true)
+                                                navigate('/teachers')
+                                            }}
+                                        >
+                                            Add a teacher
+                                        </Typography>
+                                    </Box>
+                                </MenuItem>
+                            );
+                        }
+                        return <MenuItem key={option.email} value={option.email}>{option.name}</MenuItem>;
+                    }}
                 />
+
 
             </Box>
             <Box sx={{display: 'flex', gap: 2, alignItems: 'flex-end', justifyContent: 'flex-end'}}>

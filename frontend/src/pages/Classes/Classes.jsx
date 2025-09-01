@@ -5,21 +5,12 @@ import React, {useState} from "react";
 import ClassesTable from "./ClassesTable.jsx";
 import AddClassForm from "./AddClassForm.jsx";
 import DefaultCard from "../../components/DefaultCard/DefaultCard.jsx";
+import {useClasses} from "../../hooks/useClasses.js";
 
-const Classes = () => {
+const Classes = ({setDisplayAddTeacherForm}) => {
+    const {data: classes} = useClasses();
     const [displayAddClassForm, setDisplayAddClassForm] = useState(false);
-    const classes = []
-    // const classes = [
-    //     {classLevel: 'Primary 1', className: 'A', formTeacher: 'Mr. Smith'},
-    //     {classLevel: 'Primary 2', className: 'B', formTeacher: 'Ms. Johnson'},
-    //     {classLevel: 'Primary 3', className: 'C', formTeacher: 'Mrs. Lee'},
-    //     {classLevel: 'Primary 1', className: 'B', formTeacher: 'Mr. Smith'},
-    //     {classLevel: 'Primary 2', className: 'C', formTeacher: 'Ms. Johnson'},
-    //     {classLevel: 'Primary 3', className: 'A', formTeacher: 'Mrs. Lee'},
-    //     {classLevel: 'Primary 1', className: 'C', formTeacher: 'Mr. Smith'},
-    //     {classLevel: 'Primary 2', className: 'A', formTeacher: 'Ms. Raj'},
-    //     {classLevel: 'Primary 3', className: 'B', formTeacher: 'Mrs. Lee'},
-    //     {classLevel: 'Primary 1', className: 'A', formTeacher: 'Mr. Sam'},]
+    
     return <Box sx={{display: "flex", flexDirection: 'column'}}>
         <Box sx={{display: "flex", justifyContent: "space-between", mb: 2}}>
             <Typography variant="h6" component={Link} to="/" color="inherit" sx={{
@@ -30,7 +21,7 @@ const Classes = () => {
             }}>
                 {displayAddClassForm ? 'Add Class' : 'Classes'}
             </Typography>
-            {classes.length > 0 && !displayAddClassForm && (
+            {classes?.length > 0 && !displayAddClassForm && (
                 <Box sx={{display: 'flex', justifyContent: 'flex-end'}}>
                     <Button
                         variant="contained"
@@ -50,9 +41,10 @@ const Classes = () => {
             )}
         </Box>
 
-        {!classes.length && !displayAddClassForm && <DefaultCard setAddForm={setDisplayAddClassForm} type={"class"}/>}
-        {classes.length && !displayAddClassForm && <ClassesTable classes={classes}/>}
-        {displayAddClassForm && <AddClassForm setDisplayAddClassForm={setDisplayAddClassForm} classes={classes}/>}
+        {!classes?.length && !displayAddClassForm && <DefaultCard setAddForm={setDisplayAddClassForm} type={"class"}/>}
+        {classes?.length && !displayAddClassForm && <ClassesTable classes={classes}/>}
+        {displayAddClassForm && <AddClassForm setDisplayAddClassForm={setDisplayAddClassForm} classes={classes}
+                                              setDisplayAddTeacherForm={setDisplayAddTeacherForm}/>}
     </Box>
 }
 
