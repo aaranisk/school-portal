@@ -1,6 +1,7 @@
 {
   "name": "backend",
   "version": "1.0.0",
+  "type": "module",
   "description": "School Portal API with TypeORM and PostgreSQL",
   "main": "index.js",
   "scripts": {

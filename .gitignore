@@ -11,5 +11,8 @@ frontend/build/
 frontend/.env
 frontend/*.log
 
+
+.env
+
 # System
 .DS_Store

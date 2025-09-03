@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  postgres:
+  db:
     image: postgres:15-alpine
     container_name: school_portal_db
     environment:
@@ -14,31 +14,52 @@ services:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U postgres" ]
-      interval: 10s
+      interval: 5s
       timeout: 5s
-      retries: 5
+      retries: 10
     networks:
       - school_portal_network
 
-  app:
-    build: .
+  backend:
+    build: ./backend
     container_name: school_portal_api
     ports:
       - "3000:3000"
     depends_on:
-      postgres:
+      db:
         condition: service_healthy
     environment:
-      DB_HOST: postgres
+      DB_HOST: db
       DB_PORT: ${DB_PORT}
       DB_USERNAME: ${DB_USERNAME}
       DB_PASSWORD: ${DB_PASSWORD}
       DB_NAME: ${DB_NAME}
       PORT: 3000
       NODE_ENV: development
+      CHOKIDAR_USEPOLLING: "true"
+      CHOKIDAR_INTERVAL: 100
     volumes:
-      - ./logs:/app/logs
-    restart: unless-stopped
+      - ./backend:/app
+      - /app/node_modules
+    command: [ "npm", "run", "dev" ]
+    networks:
+      - school_portal_network
+
+  frontend:
+    build: ./frontend
+    container_name: school_portal_frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+    environment:
+      VITE_API_URL: http://localhost:3000/api
+      CHOKIDAR_USEPOLLING: "true"
+      CHOKIDAR_INTERVAL: 100
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    command: [ "npm", "run", "dev", "--", "--host", "0.0.0.0", "--port", "5173" ]
     networks:
       - school_portal_network
 
