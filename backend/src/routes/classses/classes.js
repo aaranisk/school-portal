@@ -1,9 +1,36 @@
 import {Router} from "express";
-import logger from "../typeorm/logger/winston.js";
-import AppDataSource from "../datasource.js";
-import ClassEntity from "../typeorm/entities/class.entity.js";
-import TeacherEntity from "../typeorm/entities/teacher.entity.js";
+import logger from "../../typeorm/logger/winston.js";
+import AppDataSource from "../../datasource.js";
+import ClassEntity from "../../typeorm/entities/class.entity.js";
+import TeacherEntity from "../../typeorm/entities/teacher.entity.js";
+import {classSchema} from "./classes.schema.js";
 
+
+export function getReadableErrorMessage(detail) {
+    const field = detail.context.key;
+
+    switch (detail.type) {
+        case "string.empty":
+            return `${field} cannot be empty`;
+
+        case "any.required":
+            return `${field} is required`;
+
+        case "string.min":
+            return `${field} must be at least ${detail.context.limit} characters long`;
+
+        case "string.max":
+            return `${field} cannot exceed ${detail.context.limit} characters`;
+
+        case "string.pattern.base":
+            if (field === "teacherEmail") {
+                return "Invalid email address";
+            }
+            return `${field} does not match the required format`;
+        default:
+            return detail.message;
+    }
+}
 
 const router = Router();
 
@@ -60,16 +87,15 @@ router.post("/", async (req, res) => {
             label: "classes",
             level: "info"
         });
-        console.log(req.body)
-        // Validation
-        if (!level || !name || !teacherEmail) {
+        const {error} = classSchema.validate(req.body, {abortEarly: false});
+        if (error) {
             logger.log({
                 timestamp: new Date(),
-                message: "Validation failed: Missing required fields",
+                message: `Validation failed: ${error.details.map(d => d.message).join(", ")}`,
                 label: "classes",
                 level: "warn"
             });
-            return res.status(400).json({error: "All fields are required"});
+            return res.status(400).json({error: getReadableErrorMessage(error.details[0])});
         }
 
         const classRepository = AppDataSource.getRepository(ClassEntity);
@@ -111,14 +137,19 @@ router.post("/", async (req, res) => {
 
         res.sendStatus(201)
     } catch (error) {
+
         logger.log({
             timestamp: new Date(),
             error,
             message: "Failed to create class",
             label: "classes",
             level: "error"
-        });
-        res.status(500).json({error: "Failed to create class"});
+        })
+        if (error.code === '23505') {
+            res.status(400).json({error: "Selected teacher already has a class"});
+        } else {
+            res.status(500).json({error: "Failed to create class"});
+        }
     }
 });
 

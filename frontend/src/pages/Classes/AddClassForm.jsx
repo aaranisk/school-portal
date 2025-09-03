@@ -9,7 +9,12 @@ import {useNavigate} from "react-router-dom";
 import {useCreateClass} from "../../hooks/useClasses.js";
 
 const AddClassForm = ({setDisplayAddClassForm, classes, setDisplayAddTeacherForm}) => {
-    const createClassMutation = useCreateClass();
+    const createClassMutation = useCreateClass({
+        onSuccess: () => {
+            reset();
+            setDisplayAddClassForm(false);
+        },
+    });
     const navigate = useNavigate();
     const classLevels = ['Primary 1', 'Primary 2', 'Primary 3', 'Primary 4', 'Primary 5', 'Primary 6'];
     const {data: teachers} = useTeachers();
@@ -22,8 +27,6 @@ const AddClassForm = ({setDisplayAddClassForm, classes, setDisplayAddTeacherForm
     });
     const onSubmit = (data) => {
         createClassMutation.mutate(data)
-        reset();
-        setDisplayAddClassForm(false)
     };
 
     return (

@@ -1,10 +1,43 @@
 import {Router} from "express";
-import AppDataSource from "../datasource.js";
-import logger from "../typeorm/logger/winston.js";
-import TeacherEntity from "../typeorm/entities/teacher.entity.js";
+import AppDataSource from "../../datasource.js";
+import logger from "../../typeorm/logger/winston.js";
+import TeacherEntity from "../../typeorm/entities/teacher.entity.js";
+import {teacherSchema} from "./teachers.schema.js";
 
 
 const router = Router();
+
+export function getReadableErrorMessage(detail) {
+    const field = detail.context.key;
+
+    switch (detail.type) {
+        case "string.empty":
+            return `${field} cannot be empty`;
+
+        case "any.required":
+            return `${field} is required`;
+
+        case "string.min":
+            return `${field} must be at least ${detail.context.limit} characters long`;
+
+        case "string.max":
+            return `${field} cannot exceed ${detail.context.limit} characters`;
+
+        case "string.pattern.base":
+            if (field === "contactNumber") {
+                return "Contact number must start with 6 and be exactly 8 digits";
+            }
+
+            if (field === "email") {
+                return "Invalid email address";
+            }
+            
+            return `${field} does not match the required format`;
+
+        default:
+            return detail.message;
+    }
+}
 
 
 router.get("/", async (req, res) => {
@@ -56,16 +89,18 @@ router.post("/", async (req, res) => {
             label: "teachers",
             level: "info"
         });
-        console.log(req, "Req")
 
-        if (!name || !subject || !email || !contactNumber) {
+        const {error} = teacherSchema.validate(req.body, {abortEarly: false});
+        if (error) {
             logger.log({
                 timestamp: new Date(),
-                message: "Validation failed: Missing required fields",
+                message: `Validation failed: ${error.details.map(d => d.message).join(", ")}`,
                 label: "teachers",
                 level: "warn"
             });
-            return res.status(400).json({error: "All fields are required"});
+            return res.status(400).json({
+                error: getReadableErrorMessage(error.details[0])
+            });
         }
 
         const teacherRepository = AppDataSource.getRepository(TeacherEntity);
@@ -94,7 +129,6 @@ router.post("/", async (req, res) => {
             label: "teachers",
             level: "error"
         });
-
         if (error.code === '23505') {
             if (error.detail.includes('(email)')) res.status(400).json({error: 'Email already exists'});
             else if (error.detail.includes('("contactNumber")')) res.status(400).json({error: 'Contact number already exists'});

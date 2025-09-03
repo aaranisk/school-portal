@@ -7,7 +7,12 @@ import {useForm} from "react-hook-form";
 import {useCreateTeacher} from "../../hooks/useTeachers.js";
 
 const AddTeacherForm = ({setDisplayAddTeacherForm}) => {
-    const createTeacherMutation = useCreateTeacher();
+    const createTeacherMutation = useCreateTeacher({
+        onSuccess: () => {
+            reset();
+            setDisplayAddTeacherForm(false);
+        },
+    });
 
     const {handleSubmit, control, reset} = useForm({
         defaultValues: {
@@ -20,8 +25,6 @@ const AddTeacherForm = ({setDisplayAddTeacherForm}) => {
     const subjects = ['English Language', 'Mother Tongue Language', 'Mathematics', 'Science', 'Art', 'Music', 'Physical Education', 'Social Studies', 'Character and Citizenship Education']
     const onSubmit = (data) => {
         createTeacherMutation.mutate(data);
-        reset();
-        setDisplayAddTeacherForm(false)
     };
 
     return (

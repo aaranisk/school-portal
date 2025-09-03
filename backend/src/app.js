@@ -4,8 +4,8 @@ import dotenv from "dotenv";
 import path from "path";
 import {fileURLToPath} from "url";
 import fs from "fs";
-import teacherRoutes from "./routes/teachers.js";
-import classRoutes from "./routes/classes.js";
+import teacherRoutes from "./routes/teachers/teachers.js";
+import classRoutes from "./routes/classses/classes.js";
 import initDataSource, {closeTypeOrmConnections} from "./typeorm/database-typeorm.js";
 import logger from "./typeorm/logger/winston.js";
 
