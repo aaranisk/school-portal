@@ -1,10 +1,11 @@
 import {Box, Button} from "@mui/material";
-import FormSelect from "../../components/FormInputs/FormSelect.jsx";
-import FormTextField from "../../components/FormInputs/FormTextInput.jsx";
+import FormSelect from "../../../components/FormInputs/FormSelect.jsx";
+import FormTextField from "../../../components/FormInputs/FormTextInput.jsx";
 import React from "react";
 import {ArrowBack} from '@mui/icons-material';
 import {useForm} from "react-hook-form";
-import {useCreateTeacher} from "../../hooks/useTeachers.js";
+import {useCreateTeacher} from "../../../hooks/useTeachers.js";
+import "./add-teacher-form.css"
 
 const AddTeacherForm = ({setDisplayAddTeacherForm}) => {
     const createTeacherMutation = useCreateTeacher({
@@ -34,7 +35,7 @@ const AddTeacherForm = ({setDisplayAddTeacherForm}) => {
                 sx={{
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: 2,
+                    gap: 4,
                     p: 4,
                     boxShadow: 5,
                     borderRadius: 2,

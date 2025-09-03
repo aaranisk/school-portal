@@ -37,7 +37,7 @@ const AddClassForm = ({setDisplayAddClassForm, classes, setDisplayAddTeacherForm
                 sx={{
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: 2,
+                    gap: 4,
                     p: 4,
                     boxShadow: 5,
                     borderRadius: 2,

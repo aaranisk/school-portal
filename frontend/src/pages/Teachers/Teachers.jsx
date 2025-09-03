@@ -1,6 +1,6 @@
 import DefaultCard from "../../components/DefaultCard/DefaultCard.jsx";
 import React from "react";
-import AddTeacherForm from "./AddTeacherForm.jsx";
+import AddTeacherForm from "./AddTeacherForm/AddTeacherForm.jsx";
 import {Box, Button, Typography} from "@mui/material";
 import {Add as AddIcon} from '@mui/icons-material';
 import TeachersTable from "./TeachersTable.jsx";

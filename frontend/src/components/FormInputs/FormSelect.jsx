@@ -1,6 +1,7 @@
 import React from 'react';
 import {Controller} from 'react-hook-form';
 import {Box, MenuItem, TextField, Typography} from '@mui/material';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 const FormSelect = ({name, label, control, options, rules, placeholder, renderValue, customMenuItem}) => {
     return (
@@ -33,6 +34,7 @@ const FormSelect = ({name, label, control, options, rules, placeholder, renderVa
                                 height: '48px'
                             }}
                             SelectProps={{
+                                IconComponent: KeyboardArrowDownIcon,
                                 displayEmpty: true,
                                 renderValue: (selected) => {
                                     if (!selected) return <span style={{
