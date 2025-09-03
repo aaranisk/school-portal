@@ -11,6 +11,7 @@ frontend/build/
 frontend/.env
 frontend/*.log
 
+e2e/node_modules/
 
 .env
 
