@@ -15,5 +15,7 @@ e2e/node_modules/
 
 .env
 
+.idea/
+
 # System
 .DS_Store
