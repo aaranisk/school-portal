@@ -10,4 +10,5 @@ module.exports = defineConfig({
         video: 'retain-on-failure',
     },
     retries: 1,
+    workers: 1,
 });
