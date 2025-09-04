@@ -28,7 +28,7 @@ test.describe('Teacher E2E', () => {
         await teachersPage.checkTeacherTableHeaders(['#', 'Name', 'Subject', 'Email', 'Work Contact'])
         await teachersPage.expectNumberOfRows(1)
         await teachersPage.checkTeacherTableDetails([
-            ['1', 'William', 'Mathematics', 'william@gmail.com', '61234567']])
+            ['1', 'William', 'Mathematics', 'william@gmail.com', '6123 4567']])
         await teachersPage.clickAddTeacherButton()
         await teachersPage.expectTableToBeVisible(false)
         await teachersPage.clickBackButton()
@@ -45,8 +45,8 @@ test.describe('Teacher E2E', () => {
         await teachersPage.expectTableToBeVisible(true)
         await teachersPage.expectNumberOfRows(2)
         await teachersPage.checkTeacherTableDetails([
-            ['1', 'William', 'Mathematics', 'william@gmail.com', '61234567'],
-            ['2', 'Sarah', "Science", "sarah@gmail.com", "62389123"]])
+            ['1', 'William', 'Mathematics', 'william@gmail.com', '6123 4567'],
+            ['2', 'Sarah', "Science", "sarah@gmail.com", "6238 9123"]])
         await teachersPage.clickAddTeacherButton()
         await teachersPage.submitAddTeacherForm()
         await teachersPage.expectErrorValidationMessage([
@@ -93,6 +93,10 @@ test.describe('Teacher E2E', () => {
         await teachersPage.expectSuccessToastMessage()
         await teachersPage.expectTableToBeVisible(true)
         await teachersPage.expectNumberOfRows(3)
+        await teachersPage.checkTeacherTableDetails([
+            ['1', 'William', 'Mathematics', 'william@gmail.com', '6123 4567'],
+            ['2', 'Sarah', "Science", "sarah@gmail.com", "6238 9123"],
+            ['3', 'Sarah', "Art", "sarahlim@gmail.com", "6523 8912"]])
 
 
     });
