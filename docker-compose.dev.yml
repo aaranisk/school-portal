@@ -23,7 +23,7 @@ services:
   backend:
     build:
       context: ./backend
-      dockerfile: Dockerfile.prod
+      dockerfile: Dockerfile.dev
     container_name: school_portal_api
     ports:
       - "3000:3000"
@@ -37,21 +37,33 @@ services:
       DB_PASSWORD: ${DB_PASSWORD}
       DB_NAME: ${DB_NAME}
       PORT: 3000
-      NODE_ENV: production
+      NODE_ENV: development
+      CHOKIDAR_USEPOLLING: "true"
+      CHOKIDAR_INTERVAL: 100
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    command: [ "npm", "run", "dev" ]
     networks:
       - school_portal_network
 
   frontend:
     build:
       context: ./frontend
-      dockerfile: Dockerfile.prod
+      dockerfile: Dockerfile.dev
     container_name: school_portal_frontend
     ports:
-      - "5173:80"
+      - "5173:5173"
     depends_on:
       - backend
     environment:
-      VITE_API_URL: http://backend:3000/api
+      VITE_API_URL: http://localhost:3000/api
+      CHOKIDAR_USEPOLLING: "true"
+      CHOKIDAR_INTERVAL: 100
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    command: [ "npm", "run", "dev", "--", "--host", "0.0.0.0", "--port", "5173" ]
     networks:
       - school_portal_network
 
