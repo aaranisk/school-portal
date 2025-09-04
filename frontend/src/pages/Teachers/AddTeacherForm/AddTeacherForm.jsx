@@ -77,6 +77,7 @@ const AddTeacherForm = ({setDisplayAddTeacherForm}) => {
                     name="contactNumber"
                     control={control}
                     label="Work Contact Number"
+                    numericOnly={true}
                     rules={{
                         required: 'Work contact number is required.',
                         pattern: {

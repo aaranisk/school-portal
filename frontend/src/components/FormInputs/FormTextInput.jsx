@@ -1,7 +1,12 @@
 import {Controller} from "react-hook-form";
 import {Box, TextField, Typography} from "@mui/material";
 
-const FormTextField = ({name, control, label, rules = {}}) => {
+const FormTextField = ({name, control, label, rules = {}, numericOnly = false}) => {
+    const handleBeforeInput = (e) => {
+        if (numericOnly && /\D/.test(e.data)) {
+            e.preventDefault();
+        }
+    };
     return (
         <Controller
             name={name}
@@ -26,6 +31,7 @@ const FormTextField = ({name, control, label, rules = {}}) => {
                         helperText={fieldState.error ? fieldState.error.message : ""}
                         sx={{width: '464px', height: '48px'}}
                         placeholder={label}
+                        onBeforeInput={handleBeforeInput}
                     />
                 </Box>
             )}
