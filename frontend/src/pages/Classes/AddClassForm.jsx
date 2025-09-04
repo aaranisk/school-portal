@@ -8,7 +8,7 @@ import {useTeachers} from "../../hooks/useTeachers.js";
 import {useNavigate} from "react-router-dom";
 import {useCreateClass} from "../../hooks/useClasses.js";
 
-const AddClassForm = ({setDisplayAddClassForm, classes, setDisplayAddTeacherForm}) => {
+const AddClassForm = ({setDisplayAddClassForm, setDisplayAddTeacherForm}) => {
     const createClassMutation = useCreateClass({
         onSuccess: () => {
             reset();

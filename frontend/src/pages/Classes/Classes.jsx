@@ -10,7 +10,7 @@ import {useClasses} from "../../hooks/useClasses.js";
 const Classes = ({setDisplayAddTeacherForm}) => {
     const {data: classes} = useClasses();
     const [displayAddClassForm, setDisplayAddClassForm] = useState(false);
-    
+
     return <Box sx={{display: "flex", flexDirection: 'column'}}>
         <Box sx={{display: "flex", justifyContent: "space-between", mb: 2}}>
             <Typography variant="h6" component={Link} to="/" color="inherit" sx={{
@@ -43,7 +43,7 @@ const Classes = ({setDisplayAddTeacherForm}) => {
 
         {!classes?.length && !displayAddClassForm && <DefaultCard setAddForm={setDisplayAddClassForm} type={"class"}/>}
         {classes?.length && !displayAddClassForm && <ClassesTable classes={classes}/>}
-        {displayAddClassForm && <AddClassForm setDisplayAddClassForm={setDisplayAddClassForm} classes={classes}
+        {displayAddClassForm && <AddClassForm setDisplayAddClassForm={setDisplayAddClassForm}
                                               setDisplayAddTeacherForm={setDisplayAddTeacherForm}/>}
     </Box>
 }
