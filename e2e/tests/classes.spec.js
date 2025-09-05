@@ -80,7 +80,7 @@ test.describe('Class E2E', () => {
         await classesPage.submitAddClassForm()
         await classesPage.expectErrorValidationMessage([
             'Class level is required.',
-            'Class Name is required.',
+            'Class name is required.',
             'Form Teacher is required.',
         ]);
         await classesPage.fillClassDetails({

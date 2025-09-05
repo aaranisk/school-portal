@@ -16,6 +16,25 @@ describe("classSchema validation", () => {
 
     test("missing required fields fails validation", () => {
         const invalidData = {
+            level: " ",
+            name: " ",
+            teacherEmail: " "
+        };
+
+        const {error} = classSchema.validate(invalidData, {abortEarly: false});
+        expect(error).toBeDefined();
+        const details = error.details;
+        expect(details).toEqual(expect.arrayContaining([
+            expect.objectContaining({type: 'string.empty', context: expect.objectContaining({key: 'level'})}),
+            expect.objectContaining({type: 'string.empty', context: expect.objectContaining({key: 'name'})}),
+            expect.objectContaining({
+                type: 'string.empty',
+                context: expect.objectContaining({key: 'teacherEmail'})
+            })
+        ]))
+    });
+    test("empty string required fields fails validation", () => {
+        const invalidData = {
             level: "",
             name: "",
             teacherEmail: ""
@@ -33,6 +52,7 @@ describe("classSchema validation", () => {
             })
         ]))
     });
+
 
     test("invalid email fails validation", () => {
         const invalidData = {

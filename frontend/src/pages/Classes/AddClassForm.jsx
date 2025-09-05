@@ -58,7 +58,7 @@ const AddClassForm = ({setDisplayAddClassForm, setDisplayAddTeacherForm}) => {
                     control={control}
                     label="Class Name"
                     rules={{
-                        required: 'Class Name is required.',
+                        validate: (value) => value?.trim() ? true : 'Class name is required.',
                         minLength: {value: 1, message: 'Class name must be at least 1 character.'},
                         maxLength: {value: 50, message: 'Class name cannot exceed 50 characters.'}
                     }}

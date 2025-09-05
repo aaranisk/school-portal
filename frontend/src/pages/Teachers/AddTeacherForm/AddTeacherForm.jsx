@@ -46,7 +46,7 @@ const AddTeacherForm = ({setDisplayAddTeacherForm}) => {
                     control={control}
                     label="Name"
                     rules={{
-                        required: 'Name is required.',
+                        validate: (value) => value?.trim() ? true : 'Name is required.',
                         minLength: {value: 1, message: 'Name must be at least 1 character'},
                         maxLength: {value: 50, message: 'Name cannot exceed 50 characters'}
                     }}
@@ -56,7 +56,7 @@ const AddTeacherForm = ({setDisplayAddTeacherForm}) => {
                     label="Subject"
                     control={control}
                     options={subjects}
-                    rules={{required: 'Subject is required.'}}
+                    rules={{validate: (value) => value?.trim() ? true : 'Subject is required.',}}
                     placeholder={"Select a subject"}
                 />
 
@@ -66,7 +66,7 @@ const AddTeacherForm = ({setDisplayAddTeacherForm}) => {
                     control={control}
                     label="Email Address"
                     rules={{
-                        required: 'Email address is required.',
+                        validate: (value) => value?.trim() ? true : 'Email address is required.',
                         pattern: {
                             value: /^[a-zA-Z0-9]+@gmail\.com$/,
                             message: 'This email is invalid.'
@@ -79,7 +79,7 @@ const AddTeacherForm = ({setDisplayAddTeacherForm}) => {
                     label="Work Contact Number"
                     numericOnly={true}
                     rules={{
-                        required: 'Work contact number is required.',
+                        validate: (value) => value?.trim() ? true : 'Work contact number is required.',
                         pattern: {
                             value: /^6\d{7}$/,
                             message: 'This work contact number is invalid.'

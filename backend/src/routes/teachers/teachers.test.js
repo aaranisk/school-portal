@@ -191,6 +191,110 @@ describe("Teachers API", () => {
                 expect(res.body.error).toBe("contactNumber is required");
             });
 
+            test("if name is an empty string", async () => {
+                const res = await request(app)
+                    .post("/teachers")
+                    .send({
+                        name: "",
+                        email: "nicole@gmail.com",
+                        subject: "English",
+                        contactNumber: "6123 4567"
+                    });
+                expect(res.status).toBe(400);
+                expect(res.body.error).toBe("name cannot be empty");
+            });
+
+            test("if email is an empty string", async () => {
+                const res = await request(app)
+                    .post("/teachers")
+                    .send({
+                        name: "Nicole Tan",
+                        email: "",
+                        subject: "English",
+                        contactNumber: "6123 4567"
+                    });
+                expect(res.status).toBe(400);
+                expect(res.body.error).toBe("email cannot be empty");
+            });
+
+            test("if subject is an empty string", async () => {
+                const res = await request(app)
+                    .post("/teachers")
+                    .send({
+                        name: "Nicole Tan",
+                        email: "nicole@gmail.com",
+                        subject: "",
+                        contactNumber: "6123 4567"
+                    });
+                expect(res.status).toBe(400);
+                expect(res.body.error).toBe("subject cannot be empty");
+            });
+
+            test("if contactNumber is an empty string", async () => {
+                const res = await request(app)
+                    .post("/teachers")
+                    .send({
+                        name: "Nicole Tan",
+                        email: "nicole@gmail.com",
+                        subject: "English",
+                        contactNumber: ""
+                    });
+                expect(res.status).toBe(400);
+                expect(res.body.error).toBe("contactNumber cannot be empty");
+            });
+
+            test("if name is spaces only", async () => {
+                const res = await request(app)
+                    .post("/teachers")
+                    .send({
+                        name: " ",
+                        email: "nicole@gmail.com",
+                        subject: "English",
+                        contactNumber: "6123 4567"
+                    });
+                expect(res.status).toBe(400);
+                expect(res.body.error).toBe("name cannot be empty");
+            });
+
+            test("if email is spaces only", async () => {
+                const res = await request(app)
+                    .post("/teachers")
+                    .send({
+                        name: "Nicole Tan",
+                        email: " ",
+                        subject: "English",
+                        contactNumber: "6123 4567"
+                    });
+                expect(res.status).toBe(400);
+                expect(res.body.error).toBe("email cannot be empty");
+            });
+
+            test("if subject is spaces only", async () => {
+                const res = await request(app)
+                    .post("/teachers")
+                    .send({
+                        name: "Nicole Tan",
+                        email: "nicole@gmail.com",
+                        subject: " ",
+                        contactNumber: "6123 4567"
+                    });
+                expect(res.status).toBe(400);
+                expect(res.body.error).toBe("subject cannot be empty");
+            });
+
+            test("if contactNumber is spaces only", async () => {
+                const res = await request(app)
+                    .post("/teachers")
+                    .send({
+                        name: "Nicole Tan",
+                        email: "nicole@gmail.com",
+                        subject: "English",
+                        contactNumber: " "
+                    });
+                expect(res.status).toBe(400);
+                expect(res.body.error).toBe("contactNumber cannot be empty");
+            });
+
             test("if email already exists", async () => {
                 await teacherRepo.save({
                     name: "Nicole Tan",

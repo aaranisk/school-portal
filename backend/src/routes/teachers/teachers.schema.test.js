@@ -39,6 +39,30 @@ describe("teacherSchema validation", () => {
         ]))
     });
 
+    test("empty string required fields fails validation", () => {
+        const invalidData = {
+            name: " ",
+            subject: " ",
+            email: " ",
+            contactNumber: " "
+        };
+        const {error} = teacherSchema.validate(invalidData, {abortEarly: false});
+        expect(error).toBeDefined();
+        const details = error.details;
+        expect(details).toEqual(expect.arrayContaining([
+            expect.objectContaining({type: 'string.empty', context: expect.objectContaining({key: 'name'})}),
+            expect.objectContaining({
+                type: 'string.empty',
+                context: expect.objectContaining({key: 'subject'})
+            }),
+            expect.objectContaining({type: 'string.empty', context: expect.objectContaining({key: 'email'})}),
+            expect.objectContaining({
+                type: 'string.empty',
+                context: expect.objectContaining({key: 'contactNumber'}),
+            })
+        ]))
+    });
+
     test("invalid email fails validation", () => {
         const invalidData = {
             name: "Vanessa Goh",
@@ -57,6 +81,7 @@ describe("teacherSchema validation", () => {
             })
         ]))
     });
+
     test("email without gmail domain fails validation", () => {
         const invalidData = {
             name: "Vanessa Goh",

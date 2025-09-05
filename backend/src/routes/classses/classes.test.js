@@ -183,6 +183,85 @@ describe("Classes API", () => {
                 expect(res.body.error).toBe("teacherEmail is required");
             });
 
+            test("if level is an empty string", async () => {
+                const res = await request(app)
+                    .post("/classes")
+                    .send({
+                        level: "",
+                        name: "Primary 2 English",
+                        teacherEmail: "sarah@gmail.com"
+                    });
+
+                expect(res.status).toBe(400);
+                expect(res.body.error).toBe("level cannot be empty");
+            });
+
+            test("if name is an empty string", async () => {
+                const res = await request(app)
+                    .post("/classes")
+                    .send({
+                        level: 'Primary 2',
+                        name: "",
+                        teacherEmail: "sarah@gmail.com"
+                    });
+
+                expect(res.status).toBe(400);
+                expect(res.body.error).toBe("name cannot be empty");
+            });
+
+            test("if teacherEmail is an empty string", async () => {
+                const res = await request(app)
+                    .post("/classes")
+                    .send({
+                        level: 'Primary 2',
+                        name: "Primary 2 English",
+                        teacherEmail: ""
+                    });
+
+                expect(res.status).toBe(400);
+                expect(res.body.error).toBe("teacherEmail cannot be empty");
+            });
+
+            test("if level is spaces only", async () => {
+                const res = await request(app)
+                    .post("/classes")
+                    .send({
+                        level: " ",
+                        name: "Primary 2 English",
+                        teacherEmail: "sarah@gmail.com"
+                    });
+
+                expect(res.status).toBe(400);
+                expect(res.body.error).toBe("level cannot be empty");
+            });
+
+            test("if name is is spaces only", async () => {
+                const res = await request(app)
+                    .post("/classes")
+                    .send({
+                        level: 'Primary 2',
+                        name: " ",
+                        teacherEmail: "sarah@gmail.com"
+                    });
+
+                expect(res.status).toBe(400);
+                expect(res.body.error).toBe("name cannot be empty");
+            });
+
+            test("if teacherEmail is is spaces only", async () => {
+                const res = await request(app)
+                    .post("/classes")
+                    .send({
+                        level: 'Primary 2',
+                        name: "Primary 2 English",
+                        teacherEmail: " "
+                    });
+
+                expect(res.status).toBe(400);
+                expect(res.body.error).toBe("teacherEmail cannot be empty");
+            });
+
+
             test("if teacher already has a class", async () => {
                 const classes = [
                     {
