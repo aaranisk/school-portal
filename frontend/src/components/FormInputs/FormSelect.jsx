@@ -50,10 +50,12 @@ const FormSelect = ({name, label, control, options, rules, placeholder, renderVa
                                 },
                             }}
                         >
-                            {options.map((option) => (
+                            {options.map((option, index, arr) => (
                                 customMenuItem
-                                    ? customMenuItem(option)
-                                    : <MenuItem key={option} value={option}>
+                                    ? customMenuItem(option, index, arr)
+                                    : <MenuItem key={option} value={option} sx={{
+                                        borderBottom: index !== options.length - 1 ? '1px solid #ccc' : 'none',
+                                    }}>
                                         {renderValue ? renderValue(option) : option}
                                     </MenuItem>
                             ))}

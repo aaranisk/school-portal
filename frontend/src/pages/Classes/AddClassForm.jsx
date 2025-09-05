@@ -71,7 +71,7 @@ const AddClassForm = ({setDisplayAddClassForm, setDisplayAddTeacherForm}) => {
                     options={teachers?.length > 0 ? teachers : [{name: "No existing teachers.", email: ""}]}
                     rules={{required: 'Form Teacher is required.'}}
                     placeholder="Assign a form teacher"
-                    customMenuItem={(option) => {
+                    customMenuItem={(option, i, arr) => {
                         if (!option.email) {
                             return (
                                 <MenuItem key={option} value="" sx={{pointerEvents: 'auto'}}>
@@ -91,7 +91,9 @@ const AddClassForm = ({setDisplayAddClassForm, setDisplayAddTeacherForm}) => {
                                 </MenuItem>
                             );
                         }
-                        return <MenuItem key={option.email} value={option.email}>{option.name}</MenuItem>;
+                        return <MenuItem key={option.email} value={option.email} sx={{
+                            borderBottom: i !== arr?.length - 1 ? '1px solid #ccc' : 'none',
+                        }}>{option.name}</MenuItem>;
                     }}
                 />
 
