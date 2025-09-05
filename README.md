@@ -203,12 +203,12 @@ These validations are applied on the server-side to ensure data integrity.
 
 ### Teacher Validation
 
-| Field          | Rules / Requirements                                      | Error Message                                                                                                                                  |
-|----------------|-----------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|
-| Name           | Must be filled in, 1–50 characters long                   | -`"name cannot be empty"` <br/>-`"name must be at least 1 character long"`<br/>- `"name cannot exceed 50 characters"`                          |
-| Subject        | Must be filled in, 1–50 characters long                   | -`"subject cannot be empty"` <br/>-`"subject must be at least 1 character long"`<br/>- `"subject cannot exceed 50 characters"`                 |
-| Email          | Must be a filled in, valid email address and unique       | -`"email cannot be empty"` <br/>-`"Invalid email address"`<br/>- `"Email already exists"`                                                      |
-| Contact Number | Must be filled in, exactly 8 digits, no spaces and unique | -`"contact number cannot be empty"` <br/>-`"Contact number must start with 6 and be exactly 8 digits"`<br/>- `"Contact number already exists"` |
+| Field          | Rules / Requirements                                      | Error Message                                                                                                                  |
+|----------------|-----------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
+| Name           | Must be filled in, 1–50 characters long                   | -`"name cannot be empty"` <br/>-`"name must be at least 1 character long"`<br/>- `"name cannot exceed 50 characters"`          |
+| Subject        | Must be filled in, 1–50 characters long                   | -`"subject cannot be empty"` <br/>-`"subject must be at least 1 character long"`<br/>- `"subject cannot exceed 50 characters"` |
+| Email          | Must be a filled in, valid email address and unique       | -`"email cannot be empty"` <br/>-`"Invalid email address"`<br/>- `"Email already exists"`                                      |
+| Contact Number | Must be filled in, exactly 8 digits, no spaces and unique | -`"contact number cannot be empty"` <br/>-`"Invalid contact number"`<br/>- `"Contact number already exists"`                   |
 
 ### Class Validation
 

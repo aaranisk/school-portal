@@ -25,13 +25,13 @@ export function getReadableErrorMessage(detail) {
 
         case "string.pattern.base":
             if (field === "contactNumber") {
-                return "Contact number must start with 6 and be exactly 8 digits";
+                return "Invalid contact number";
             }
 
             if (field === "email") {
                 return "Invalid email address";
             }
-            
+
             return `${field} does not match the required format`;
 
         default:

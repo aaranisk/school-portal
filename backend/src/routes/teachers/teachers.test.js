@@ -243,7 +243,7 @@ describe("Teachers API", () => {
                         contactNumber: "123"
                     });
                 expect(res.status).toBe(400);
-                expect(res.body.error).toBe("Contact number must start with 6 and be exactly 8 digits");
+                expect(res.body.error).toBe("Invalid contact number");
             });
 
             test("for invalid contact number that is does not start with 6", async () => {
@@ -256,7 +256,7 @@ describe("Teachers API", () => {
                         contactNumber: "123"
                     });
                 expect(res.status).toBe(400);
-                expect(res.body.error).toBe("Contact number must start with 6 and be exactly 8 digits");
+                expect(res.body.error).toBe("Invalid contact number");
             });
         })
     });
