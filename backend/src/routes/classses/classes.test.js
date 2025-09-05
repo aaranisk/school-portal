@@ -156,7 +156,7 @@ describe("Classes API", () => {
                     });
 
                 expect(res.status).toBe(400);
-                expect(res.body.error).toBe("level is required");
+                expect(res.body.error).toBe("Level is required");
             });
 
             test("if name is missing", async () => {
@@ -168,7 +168,7 @@ describe("Classes API", () => {
                     });
 
                 expect(res.status).toBe(400);
-                expect(res.body.error).toBe("name is required");
+                expect(res.body.error).toBe("Name is required");
             });
 
             test("if teacherEmail is missing", async () => {
@@ -180,7 +180,7 @@ describe("Classes API", () => {
                     });
 
                 expect(res.status).toBe(400);
-                expect(res.body.error).toBe("teacherEmail is required");
+                expect(res.body.error).toBe("Teacher email is required");
             });
 
             test("if level is an empty string", async () => {
@@ -193,7 +193,7 @@ describe("Classes API", () => {
                     });
 
                 expect(res.status).toBe(400);
-                expect(res.body.error).toBe("level cannot be empty");
+                expect(res.body.error).toBe("Level cannot be empty");
             });
 
             test("if name is an empty string", async () => {
@@ -206,7 +206,7 @@ describe("Classes API", () => {
                     });
 
                 expect(res.status).toBe(400);
-                expect(res.body.error).toBe("name cannot be empty");
+                expect(res.body.error).toBe("Name cannot be empty");
             });
 
             test("if teacherEmail is an empty string", async () => {
@@ -219,7 +219,7 @@ describe("Classes API", () => {
                     });
 
                 expect(res.status).toBe(400);
-                expect(res.body.error).toBe("teacherEmail cannot be empty");
+                expect(res.body.error).toBe("Teacher email cannot be empty");
             });
 
             test("if level is spaces only", async () => {
@@ -232,7 +232,7 @@ describe("Classes API", () => {
                     });
 
                 expect(res.status).toBe(400);
-                expect(res.body.error).toBe("level cannot be empty");
+                expect(res.body.error).toBe("Level cannot be empty");
             });
 
             test("if name is is spaces only", async () => {
@@ -245,7 +245,7 @@ describe("Classes API", () => {
                     });
 
                 expect(res.status).toBe(400);
-                expect(res.body.error).toBe("name cannot be empty");
+                expect(res.body.error).toBe("Name cannot be empty");
             });
 
             test("if teacherEmail is is spaces only", async () => {
@@ -258,7 +258,7 @@ describe("Classes API", () => {
                     });
 
                 expect(res.status).toBe(400);
-                expect(res.body.error).toBe("teacherEmail cannot be empty");
+                expect(res.body.error).toBe("Teacher email cannot be empty");
             });
 
 

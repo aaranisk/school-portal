@@ -3,25 +3,27 @@ import AppDataSource from "../../datasource.js";
 import logger from "../../typeorm/logger/winston.js";
 import TeacherEntity from "../../typeorm/entities/teacher.entity.js";
 import {teacherSchema} from "./teachers.schema.js";
+import formatField from "../helpers/format-field.js";
 
 
 const router = Router();
 
 export function getReadableErrorMessage(detail) {
     const field = detail.context.key;
+    const capitalizedField = formatField(field)
 
     switch (detail.type) {
         case "string.empty":
-            return `${field} cannot be empty`;
+            return `${capitalizedField} cannot be empty`;
 
         case "any.required":
-            return `${field} is required`;
+            return `${capitalizedField} is required`;
 
         case "string.min":
-            return `${field} must be at least ${detail.context.limit} characters long`;
+            return `${capitalizedField} must be at least ${detail.context.limit} characters long`;
 
         case "string.max":
-            return `${field} cannot exceed ${detail.context.limit} characters`;
+            return `${capitalizedField} cannot exceed ${detail.context.limit} characters`;
 
         case "string.pattern.base":
             if (field === "contactNumber") {
@@ -32,7 +34,7 @@ export function getReadableErrorMessage(detail) {
                 return "Invalid email address";
             }
 
-            return `${field} does not match the required format`;
+            return `${capitalizedField} does not match the required format`;
 
         default:
             return detail.message;

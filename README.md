@@ -205,18 +205,18 @@ These validations are applied on the server-side to ensure data integrity.
 
 | Field          | Rules / Requirements                                      | Error Message                                                                                                                  |
 |----------------|-----------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
-| Name           | Must be filled in, 1–50 characters long                   | -`"name cannot be empty"` <br/>-`"name must be at least 1 character long"`<br/>- `"name cannot exceed 50 characters"`          |
-| Subject        | Must be filled in, 1–50 characters long                   | -`"subject cannot be empty"` <br/>-`"subject must be at least 1 character long"`<br/>- `"subject cannot exceed 50 characters"` |
-| Email          | Must be a filled in, valid email address and unique       | -`"email cannot be empty"` <br/>-`"Invalid email address"`<br/>- `"Email already exists"`                                      |
-| Contact Number | Must be filled in, exactly 8 digits, no spaces and unique | -`"contact number cannot be empty"` <br/>-`"Invalid contact number"`<br/>- `"Contact number already exists"`                   |
+| Name           | Must be filled in, 1–50 characters long                   | -`"Name cannot be empty"` <br/>-`"Name must be at least 1 character long"`<br/>- `"Name cannot exceed 50 characters"`          |
+| Subject        | Must be filled in, 1–50 characters long                   | -`"Subject cannot be empty"` <br/>-`"Subject must be at least 1 character long"`<br/>- `"Subject cannot exceed 50 characters"` |
+| Email          | Must be a filled in, valid email address and unique       | -`"Email cannot be empty"` <br/>-`"Invalid email address"`<br/>- `"Email already exists"`                                      |
+| Contact Number | Must be filled in, exactly 8 digits, no spaces and unique | -`"Contact number cannot be empty"` <br/>-`"Invalid contact number"`<br/>- `"Contact number already exists"`                   |
 
 ### Class Validation
 
 | Field | Rules / Requirements                              | Error Message                                                                                                             |
 |-------|---------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------|
-| Level | Must be filled in, 1–50 characters long           | -`"level cannot be empty"` <br/>- `"level must be at least 1 character long"`<br/>- `"level cannot exceed 50 characters"` |
-| Name  | Must be filled in, 1–50 characters long           | -`"name cannot be empty"` <br/>- `"name must be at least 1 character"`<br/>- `"name cannot exceed 50 characters"`         |
-| Email | Must be filled in, valid email address and unique | -`"email cannot be empty"` <br/>- `"Invalid email address"`<br/>-  `"Selected teacher already has a class"`               |
+| Level | Must be filled in, 1–50 characters long           | -`"Level cannot be empty"` <br/>- `"Level must be at least 1 character long"`<br/>- `"Level cannot exceed 50 characters"` |
+| Name  | Must be filled in, 1–50 characters long           | -`"Name cannot be empty"` <br/>- `"Name must be at least 1 character"`<br/>- `"Name cannot exceed 50 characters"`         |
+| Email | Must be filled in, valid email address and unique | -`"Email cannot be empty"` <br/>- `"Invalid email address"`<br/>-  `"Selected teacher already has a class"`               |
 
 ---
 

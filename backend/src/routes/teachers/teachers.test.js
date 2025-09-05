@@ -152,7 +152,7 @@ describe("Teachers API", () => {
                         contactNumber: "6123 4567"
                     });
                 expect(res.status).toBe(400);
-                expect(res.body.error).toBe("name is required");
+                expect(res.body.error).toBe("Name is required");
             });
 
             test("if email is missing", async () => {
@@ -164,7 +164,7 @@ describe("Teachers API", () => {
                         contactNumber: "6123 4567"
                     });
                 expect(res.status).toBe(400);
-                expect(res.body.error).toBe("email is required");
+                expect(res.body.error).toBe("Email is required");
             });
 
             test("if subject is missing", async () => {
@@ -176,7 +176,7 @@ describe("Teachers API", () => {
                         contactNumber: "6123 4567"
                     });
                 expect(res.status).toBe(400);
-                expect(res.body.error).toBe("subject is required");
+                expect(res.body.error).toBe("Subject is required");
             });
 
             test("if contactNumber is missing", async () => {
@@ -188,7 +188,7 @@ describe("Teachers API", () => {
                         subject: "English",
                     });
                 expect(res.status).toBe(400);
-                expect(res.body.error).toBe("contactNumber is required");
+                expect(res.body.error).toBe("Contact number is required");
             });
 
             test("if name is an empty string", async () => {
@@ -201,7 +201,7 @@ describe("Teachers API", () => {
                         contactNumber: "6123 4567"
                     });
                 expect(res.status).toBe(400);
-                expect(res.body.error).toBe("name cannot be empty");
+                expect(res.body.error).toBe("Name cannot be empty");
             });
 
             test("if email is an empty string", async () => {
@@ -214,7 +214,7 @@ describe("Teachers API", () => {
                         contactNumber: "6123 4567"
                     });
                 expect(res.status).toBe(400);
-                expect(res.body.error).toBe("email cannot be empty");
+                expect(res.body.error).toBe("Email cannot be empty");
             });
 
             test("if subject is an empty string", async () => {
@@ -227,7 +227,7 @@ describe("Teachers API", () => {
                         contactNumber: "6123 4567"
                     });
                 expect(res.status).toBe(400);
-                expect(res.body.error).toBe("subject cannot be empty");
+                expect(res.body.error).toBe("Subject cannot be empty");
             });
 
             test("if contactNumber is an empty string", async () => {
@@ -240,7 +240,7 @@ describe("Teachers API", () => {
                         contactNumber: ""
                     });
                 expect(res.status).toBe(400);
-                expect(res.body.error).toBe("contactNumber cannot be empty");
+                expect(res.body.error).toBe("Contact number cannot be empty");
             });
 
             test("if name is spaces only", async () => {
@@ -253,7 +253,7 @@ describe("Teachers API", () => {
                         contactNumber: "6123 4567"
                     });
                 expect(res.status).toBe(400);
-                expect(res.body.error).toBe("name cannot be empty");
+                expect(res.body.error).toBe("Name cannot be empty");
             });
 
             test("if email is spaces only", async () => {
@@ -266,7 +266,7 @@ describe("Teachers API", () => {
                         contactNumber: "6123 4567"
                     });
                 expect(res.status).toBe(400);
-                expect(res.body.error).toBe("email cannot be empty");
+                expect(res.body.error).toBe("Email cannot be empty");
             });
 
             test("if subject is spaces only", async () => {
@@ -279,7 +279,7 @@ describe("Teachers API", () => {
                         contactNumber: "6123 4567"
                     });
                 expect(res.status).toBe(400);
-                expect(res.body.error).toBe("subject cannot be empty");
+                expect(res.body.error).toBe("Subject cannot be empty");
             });
 
             test("if contactNumber is spaces only", async () => {
@@ -292,7 +292,7 @@ describe("Teachers API", () => {
                         contactNumber: " "
                     });
                 expect(res.status).toBe(400);
-                expect(res.body.error).toBe("contactNumber cannot be empty");
+                expect(res.body.error).toBe("Contact number cannot be empty");
             });
 
             test("if email already exists", async () => {
