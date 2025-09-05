@@ -13,10 +13,10 @@ function App() {
             <ModuleBar/>
             <Box sx={{
                 mt: 10,
-                ml: '5rem',
-                mr: '5rem',
+                ml: '3rem',
+                mr: '3rem',
                 bgcolor: 'white',
-                width: 'calc(100vw - 10rem)',
+                width: 'calc(100vw - 6rem)',
                 maxWidth: 'none'
             }}>
                 <Routes>
