@@ -193,7 +193,7 @@ describe("Classes API", () => {
                     });
 
                 expect(res.status).toBe(400);
-                expect(res.body.error).toBe("Level cannot be empty");
+                expect(res.body.error).toBe("Invalid level");
             });
 
             test("if name is an empty string", async () => {
@@ -232,7 +232,7 @@ describe("Classes API", () => {
                     });
 
                 expect(res.status).toBe(400);
-                expect(res.body.error).toBe("Level cannot be empty");
+                expect(res.body.error).toBe("Invalid level");
             });
 
             test("if name is is spaces only", async () => {
@@ -259,6 +259,19 @@ describe("Classes API", () => {
 
                 expect(res.status).toBe(400);
                 expect(res.body.error).toBe("Teacher email cannot be empty");
+            });
+
+            test("if level is invalid", async () => {
+                const res = await request(app)
+                    .post("/classes")
+                    .send({
+                        level: 'Grade 2',
+                        name: "Primary 2 English",
+                        teacherEmail: "sarah@gmail.com"
+                    });
+
+                expect(res.status).toBe(400);
+                expect(res.body.error).toBe("Invalid level");
             });
 
 

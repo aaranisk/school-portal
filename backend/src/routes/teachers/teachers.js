@@ -19,6 +19,9 @@ export function getReadableErrorMessage(detail) {
         case "any.required":
             return `${capitalizedField} is required`;
 
+        case "any.only":
+            return `Invalid ${field}`
+
         case "string.min":
             return `${capitalizedField} must be at least ${detail.context.limit} characters long`;
 

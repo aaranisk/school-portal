@@ -43,7 +43,12 @@ describe("Teachers API", () => {
 
             test("and an array of teachers if there are any teachers saved in the db", async () => {
                 const teachers = [
-                    {name: "Nicole Tan", email: "nicole@gmail.com", subject: "English", contactNumber: "61234567"},
+                    {
+                        name: "Nicole Tan",
+                        email: "nicole@gmail.com",
+                        subject: "English Language",
+                        contactNumber: "61234567"
+                    },
                     {name: "Lydia Lee", email: "lydia@gmail.com", subject: "Science", contactNumber: "67895132"}
                 ];
                 await teacherRepo.save(teachers);
@@ -55,7 +60,7 @@ describe("Teachers API", () => {
                             {
                                 name: "Nicole Tan",
                                 email: "nicole@gmail.com",
-                                subject: "English",
+                                subject: "English Language",
                                 contactNumber: "61234567"
                             },
                             {
@@ -73,7 +78,12 @@ describe("Teachers API", () => {
         describe("should return status code 200", () => {
             test("and create a new teacher successfully", async () => {
                 const teachers = [
-                    {name: "Nicole Tan", email: "nicole@gmail.com", subject: "English", contactNumber: "61234567"},
+                    {
+                        name: "Nicole Tan",
+                        email: "nicole@gmail.com",
+                        subject: "English Language",
+                        contactNumber: "61234567"
+                    },
                     {name: "Lydia Lee", email: "lydia@gmail.com", subject: "Science", contactNumber: "67895132"}
                 ];
                 await teacherRepo.save(teachers);
@@ -100,7 +110,7 @@ describe("Teachers API", () => {
                 expect(savedTeachers).toEqual(expect.arrayContaining([{
                         name: "Nicole Tan",
                         email: "nicole@gmail.com",
-                        subject: "English",
+                        subject: "English Language",
                         contactNumber: "61234567"
                     }, {
                         name: "Lydia Lee",
@@ -124,19 +134,20 @@ describe("Teachers API", () => {
                     .send({
                         name: "Nicole Tan",
                         email: "invalid-email",
-                        subject: "English",
+                        subject: "English Language",
                         contactNumber: "6123 4567"
                     });
                 expect(res.status).toBe(400);
                 expect(res.body.error).toBe("Invalid email address");
             });
+
             test("should return 400 for email that does not have gmail as domain", async () => {
                 const res = await request(app)
                     .post("/teachers")
                     .send({
                         name: "Nicole Tan",
                         email: "nicole@gov.sg",
-                        subject: "English",
+                        subject: "English Language",
                         contactNumber: "6123 4567"
                     });
                 expect(res.status).toBe(400);
@@ -148,7 +159,7 @@ describe("Teachers API", () => {
                     .post("/teachers")
                     .send({
                         email: "nicole@gmail.com",
-                        subject: "English",
+                        subject: "English Language",
                         contactNumber: "6123 4567"
                     });
                 expect(res.status).toBe(400);
@@ -160,7 +171,7 @@ describe("Teachers API", () => {
                     .post("/teachers")
                     .send({
                         name: "Nicole Tan",
-                        subject: "English",
+                        subject: "English Language",
                         contactNumber: "6123 4567"
                     });
                 expect(res.status).toBe(400);
@@ -185,7 +196,7 @@ describe("Teachers API", () => {
                     .send({
                         name: "Nicole Tan",
                         email: "nicole@gmail.com",
-                        subject: "English",
+                        subject: "English Language",
                     });
                 expect(res.status).toBe(400);
                 expect(res.body.error).toBe("Contact number is required");
@@ -197,7 +208,7 @@ describe("Teachers API", () => {
                     .send({
                         name: "",
                         email: "nicole@gmail.com",
-                        subject: "English",
+                        subject: "English Language",
                         contactNumber: "6123 4567"
                     });
                 expect(res.status).toBe(400);
@@ -210,7 +221,7 @@ describe("Teachers API", () => {
                     .send({
                         name: "Nicole Tan",
                         email: "",
-                        subject: "English",
+                        subject: "English Language",
                         contactNumber: "6123 4567"
                     });
                 expect(res.status).toBe(400);
@@ -227,7 +238,7 @@ describe("Teachers API", () => {
                         contactNumber: "6123 4567"
                     });
                 expect(res.status).toBe(400);
-                expect(res.body.error).toBe("Subject cannot be empty");
+                expect(res.body.error).toBe("Invalid subject");
             });
 
             test("if contactNumber is an empty string", async () => {
@@ -236,7 +247,7 @@ describe("Teachers API", () => {
                     .send({
                         name: "Nicole Tan",
                         email: "nicole@gmail.com",
-                        subject: "English",
+                        subject: "English Language",
                         contactNumber: ""
                     });
                 expect(res.status).toBe(400);
@@ -249,7 +260,7 @@ describe("Teachers API", () => {
                     .send({
                         name: " ",
                         email: "nicole@gmail.com",
-                        subject: "English",
+                        subject: "English Language",
                         contactNumber: "6123 4567"
                     });
                 expect(res.status).toBe(400);
@@ -262,7 +273,7 @@ describe("Teachers API", () => {
                     .send({
                         name: "Nicole Tan",
                         email: " ",
-                        subject: "English",
+                        subject: "English Language",
                         contactNumber: "6123 4567"
                     });
                 expect(res.status).toBe(400);
@@ -279,7 +290,7 @@ describe("Teachers API", () => {
                         contactNumber: "6123 4567"
                     });
                 expect(res.status).toBe(400);
-                expect(res.body.error).toBe("Subject cannot be empty");
+                expect(res.body.error).toBe("Invalid subject");
             });
 
             test("if contactNumber is spaces only", async () => {
@@ -288,7 +299,7 @@ describe("Teachers API", () => {
                     .send({
                         name: "Nicole Tan",
                         email: "nicole@gmail.com",
-                        subject: "English",
+                        subject: "English Language",
                         contactNumber: " "
                     });
                 expect(res.status).toBe(400);
@@ -299,7 +310,7 @@ describe("Teachers API", () => {
                 await teacherRepo.save({
                     name: "Nicole Tan",
                     email: "nicole@gmail.com",
-                    subject: "English",
+                    subject: "English Language",
                     contactNumber: "61234567"
                 });
 
@@ -320,7 +331,7 @@ describe("Teachers API", () => {
                 await teacherRepo.save({
                     name: "Nicole Tan",
                     email: "nicole@gmail.com",
-                    subject: "English",
+                    subject: "English Language",
                     contactNumber: "61234567"
                 });
 
@@ -337,13 +348,26 @@ describe("Teachers API", () => {
                 expect(res.body.error).toBe("Contact number already exists");
             });
 
+            test("if subject is invalid", async () => {
+                const res = await request(app)
+                    .post("/teachers")
+                    .send({
+                        name: "Nicole Tan",
+                        email: "nicole@gmail.com",
+                        subject: "Sommmething",
+                        contactNumber: "61234598"
+                    });
+                expect(res.status).toBe(400);
+                expect(res.body.error).toBe("Invalid subject");
+            });
+
             test("for invalid contact number that is in the wrong format", async () => {
                 const res = await request(app)
                     .post("/teachers")
                     .send({
                         name: "Nicole Tan",
                         email: "nicole@gmail.com",
-                        subject: "English",
+                        subject: "English Language",
                         contactNumber: "123"
                     });
                 expect(res.status).toBe(400);
@@ -356,7 +380,7 @@ describe("Teachers API", () => {
                     .send({
                         name: "Nicole Tan",
                         email: "nicole@gmail.com",
-                        subject: "English",
+                        subject: "English Language",
                         contactNumber: "123"
                     });
                 expect(res.status).toBe(400);

@@ -5,7 +5,7 @@ describe("teacherSchema validation", () => {
     test("valid teacher data passes validation", () => {
         const validData = {
             name: "Sarah Lim",
-            subject: "English",
+            subject: "English Language",
             email: "sarah@gmail.com",
             contactNumber: "61234567"
         };
@@ -142,7 +142,7 @@ describe("teacherSchema validation", () => {
     test("fields exceeding max length fail validation", () => {
         const invalidData = {
             name: "N".repeat(51),
-            subject: "S".repeat(51),
+            subject: "Art",
             email: "sarah@gmail.com",
             contactNumber: "12345678"
         };
@@ -154,8 +154,22 @@ describe("teacherSchema validation", () => {
                 type: 'string.max',
                 context: expect.objectContaining({key: 'name'})
             }),
+        ]))
+    });
+
+    test("valid subject validation", () => {
+        const invalidData = {
+            name: "Sarah",
+            subject: "Something",
+            email: "sarah@gmail.com",
+            contactNumber: "12345678"
+        };
+
+        const {error} = teacherSchema.validate(invalidData, {abortEarly: false});
+        const details = error.details;
+        expect(details).toEqual(expect.arrayContaining([
             expect.objectContaining({
-                type: 'string.max',
+                type: 'any.only',
                 context: expect.objectContaining({key: 'subject'})
             })
         ]))

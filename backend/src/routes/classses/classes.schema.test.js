@@ -57,7 +57,7 @@ describe("classSchema validation", () => {
     test("invalid email fails validation", () => {
         const invalidData = {
             level: "Primary 2",
-            name: "Primary 2 Mathmatics",
+            name: "Primary 2 Mathematics",
             teacherEmail: "invalid-email"
         };
 
@@ -71,10 +71,11 @@ describe("classSchema validation", () => {
             })
         ]))
     });
+
     test("email that does not have gmail domain fails validation", () => {
         const invalidData = {
             level: "Primary 2",
-            name: "Primary 2 Mathmatics",
+            name: "Primary 2 Mathematics",
             teacherEmail: "sarah@gov.sg"
         };
 
@@ -89,19 +90,33 @@ describe("classSchema validation", () => {
         ]))
     });
 
+    test("invalid level fails validation", () => {
+        const invalidData = {
+            level: "Grade 2",
+            name: "Primary 2 Mathematics",
+            teacherEmail: "sarah@gmail.comm"
+        };
+
+        const {error} = classSchema.validate(invalidData);
+        expect(error).toBeDefined();
+        const details = error.details;
+        expect(details).toEqual(expect.arrayContaining([
+            expect.objectContaining({
+                type: 'any.only',
+                context: expect.objectContaining({key: 'level'})
+            })
+        ]))
+    });
+
     test("fields exceeding max length fail validation", () => {
         const invalidData = {
-            level: "L".repeat(51),
+            level: "Primary 6",
             name: "N".repeat(51),
             teacherEmail: "sarah@gmail.com"
         };
         const {error} = classSchema.validate(invalidData, {abortEarly: false});
         const details = error.details;
         expect(details).toEqual(expect.arrayContaining([
-            expect.objectContaining({
-                type: 'string.max',
-                context: expect.objectContaining({key: 'level'})
-            }),
             expect.objectContaining({
                 type: 'string.max',
                 context: expect.objectContaining({key: 'name'})
