@@ -34,7 +34,7 @@ export function getReadableErrorMessage(detail) {
             }
 
             if (field === "email") {
-                return "Invalid email address";
+                return "Invalid email";
             }
 
             return `${capitalizedField} does not match the required format`;

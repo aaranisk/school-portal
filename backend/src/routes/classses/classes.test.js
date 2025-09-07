@@ -126,7 +126,7 @@ describe("Classes API", () => {
                     .send({level: "Primary 3", name: "Primary 3 Science", teacherEmail: "invalid-email"});
 
                 expect(res.status).toBe(400);
-                expect(res.body.error).toBe("Invalid email address");
+                expect(res.body.error).toBe("Invalid teacher email");
             });
 
             test("if there is an email that does not have gmail as domain", async () => {
@@ -135,7 +135,7 @@ describe("Classes API", () => {
                     .send({level: "Primary 3", name: "Primary 3 Science", teacherEmail: "sarah@hotmail.com"});
 
                 expect(res.status).toBe(400);
-                expect(res.body.error).toBe("Invalid email address");
+                expect(res.body.error).toBe("Invalid teacher email");
             });
 
             test("if teacher not found", async () => {
@@ -193,7 +193,7 @@ describe("Classes API", () => {
                     });
 
                 expect(res.status).toBe(400);
-                expect(res.body.error).toBe("Invalid level");
+                expect(res.body.error).toBe("Level cannot be empty");
             });
 
             test("if name is an empty string", async () => {
@@ -232,10 +232,10 @@ describe("Classes API", () => {
                     });
 
                 expect(res.status).toBe(400);
-                expect(res.body.error).toBe("Invalid level");
+                expect(res.body.error).toBe("Level cannot be empty");
             });
 
-            test("if name is is spaces only", async () => {
+            test("if name is spaces only", async () => {
                 const res = await request(app)
                     .post("/classes")
                     .send({
@@ -248,7 +248,7 @@ describe("Classes API", () => {
                 expect(res.body.error).toBe("Name cannot be empty");
             });
 
-            test("if teacherEmail is is spaces only", async () => {
+            test("if teacherEmail is spaces only", async () => {
                 const res = await request(app)
                     .post("/classes")
                     .send({
@@ -259,6 +259,42 @@ describe("Classes API", () => {
 
                 expect(res.status).toBe(400);
                 expect(res.body.error).toBe("Teacher email cannot be empty");
+            });
+
+            test("if level exceeds 50 characters", async () => {
+                const res = await request(app)
+                    .post("/classes")
+                    .send({
+                        level: "      aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        name: "Primary 2 English",
+                        teacherEmail: "sarah@gmail.com"
+                    });
+                expect(res.status).toBe(400);
+                expect(res.body.error).toBe("Level cannot exceed 50 characters");
+            });
+
+            test("if name exceeds 50 characters", async () => {
+                const res = await request(app)
+                    .post("/classes")
+                    .send({
+                        level: 'Primary 2',
+                        name: "      aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        teacherEmail: "sarah@gmail.com"
+                    });
+                expect(res.status).toBe(400);
+                expect(res.body.error).toBe("Name cannot exceed 50 characters");
+            });
+
+            test("if teacherEmail exceeds 250 characters", async () => {
+                const res = await request(app)
+                    .post("/classes")
+                    .send({
+                        level: 'Primary 2',
+                        name: "Primary 2 English",
+                        teacherEmail: "      aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@gmail.com"
+                    });
+                expect(res.status).toBe(400);
+                expect(res.body.error).toBe("Teacher email cannot exceed 255 characters");
             });
 
             test("if level is invalid", async () => {
@@ -273,7 +309,6 @@ describe("Classes API", () => {
                 expect(res.status).toBe(400);
                 expect(res.body.error).toBe("Invalid level");
             });
-
 
             test("if teacher already has a class", async () => {
                 const classes = [

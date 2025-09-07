@@ -29,7 +29,7 @@ export function getReadableErrorMessage(detail) {
 
         case "string.pattern.base":
             if (field === "teacherEmail") {
-                return "Invalid email address";
+                return "Invalid teacher email";
             }
             return `${capitalizedField} does not match the required format`;
         default:

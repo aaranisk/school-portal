@@ -128,7 +128,7 @@ describe("Teachers API", () => {
             });
         })
         describe("should return status code 400", () => {
-            test("should return 400 for invalid email", async () => {
+            test("invalid email", async () => {
                 const res = await request(app)
                     .post("/teachers")
                     .send({
@@ -138,10 +138,10 @@ describe("Teachers API", () => {
                         contactNumber: "6123 4567"
                     });
                 expect(res.status).toBe(400);
-                expect(res.body.error).toBe("Invalid email address");
+                expect(res.body.error).toBe("Invalid email");
             });
 
-            test("should return 400 for email that does not have gmail as domain", async () => {
+            test("for email that does not have gmail as domain", async () => {
                 const res = await request(app)
                     .post("/teachers")
                     .send({
@@ -151,7 +151,7 @@ describe("Teachers API", () => {
                         contactNumber: "6123 4567"
                     });
                 expect(res.status).toBe(400);
-                expect(res.body.error).toBe("Invalid email address");
+                expect(res.body.error).toBe("Invalid email");
             });
 
             test("if name is missing", async () => {
@@ -184,7 +184,7 @@ describe("Teachers API", () => {
                     .send({
                         name: "Nicole Tan",
                         email: "nicole@gmail.com",
-                        contactNumber: "6123 4567"
+                        contactNumber: "61234567"
                     });
                 expect(res.status).toBe(400);
                 expect(res.body.error).toBe("Subject is required");
@@ -238,7 +238,7 @@ describe("Teachers API", () => {
                         contactNumber: "6123 4567"
                     });
                 expect(res.status).toBe(400);
-                expect(res.body.error).toBe("Invalid subject");
+                expect(res.body.error).toBe("Subject cannot be empty");
             });
 
             test("if contactNumber is an empty string", async () => {
@@ -290,7 +290,7 @@ describe("Teachers API", () => {
                         contactNumber: "6123 4567"
                     });
                 expect(res.status).toBe(400);
-                expect(res.body.error).toBe("Invalid subject");
+                expect(res.body.error).toBe("Subject cannot be empty");
             });
 
             test("if contactNumber is spaces only", async () => {
@@ -304,6 +304,59 @@ describe("Teachers API", () => {
                     });
                 expect(res.status).toBe(400);
                 expect(res.body.error).toBe("Contact number cannot be empty");
+            });
+
+            test("for name that exceeds 8 digits", async () => {
+                const res = await request(app)
+                    .post("/teachers")
+                    .send({
+                        name: "  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        email: "nicole@gmail.com",
+                        subject: "English Language",
+                        contactNumber: "67891234"
+                    });
+                expect(res.status).toBe(400);
+                expect(res.body.error).toBe("Name cannot exceed 50 characters");
+            });
+
+            test("for subject that exceeds 50 digits", async () => {
+                const res = await request(app)
+                    .post("/teachers")
+                    .send({
+                        name: "Nicole Tan",
+                        email: "nicole@gmail.com",
+                        subject: "          aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        contactNumber: "67891234"
+                    });
+                expect(res.status).toBe(400);
+                expect(res.body.error).toBe('Subject cannot exceed 50 characters');
+            });
+
+            test("for email that exceeds 8 digits", async () => {
+                const res = await request(app)
+                    .post("/teachers")
+                    .send({
+                        name: "Nicole Tan",
+                        email: "     aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@gmail.com",
+                        subject: "English Language",
+                        contactNumber: "67891234"
+                    });
+                expect(res.status).toBe(400);
+
+                expect(res.body.error).toBe("Email cannot exceed 255 characters");
+            });
+
+            test("for contact number that exceeds 8 digits", async () => {
+                const res = await request(app)
+                    .post("/teachers")
+                    .send({
+                        name: "Nicole Tan",
+                        email: "nicole@gmail.com",
+                        subject: "English Language",
+                        contactNumber: " 67891234"
+                    });
+                expect(res.status).toBe(400);
+                expect(res.body.error).toBe("Contact number cannot exceed 8 characters");
             });
 
             test("if email already exists", async () => {
@@ -381,11 +434,12 @@ describe("Teachers API", () => {
                         name: "Nicole Tan",
                         email: "nicole@gmail.com",
                         subject: "English Language",
-                        contactNumber: "123"
+                        contactNumber: "89564265"
                     });
                 expect(res.status).toBe(400);
                 expect(res.body.error).toBe("Invalid contact number");
             });
+
         })
     });
 });
