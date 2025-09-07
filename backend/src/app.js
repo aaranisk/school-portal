@@ -8,6 +8,7 @@ import teacherRoutes from "./routes/teachers/teachers.js";
 import classRoutes from "./routes/classses/classes.js";
 import initDataSource, {closeTypeOrmConnections} from "./typeorm/database-typeorm.js";
 import logger from "./typeorm/logger/winston.js";
+import AppDataSource from "./datasource.js";
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -65,6 +66,7 @@ app.get("/health", async (req, res) => {
             timestamp: new Date().toISOString()
         });
     } catch (error) {
+        console.log(error, "error")
         logger.log({
             timestamp: new Date(),
             error,
