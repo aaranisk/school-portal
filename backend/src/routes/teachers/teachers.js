@@ -33,6 +33,10 @@ export function getReadableErrorMessage(detail) {
                 return "Invalid contact number";
             }
 
+            if (field === "name") {
+                return "Invalid name"
+            }
+
             if (field === "email") {
                 return "Invalid email";
             }

@@ -139,6 +139,8 @@ Note: Change NODE_ENV in the .env file to development before running the followi
    -Allowed values:
    "English Language", "Mother Tongue Language", "Mathematics", "Science", "Art", "Music", "Physical Education", "Social
    Studies", "Character and Citizenship Education"
+8. Teacher name
+    - Only letters and spaces are accepted
 
 ---
 
@@ -212,7 +214,7 @@ These validations are applied on the server-side to ensure data integrity.
 
 | Field          | Rules / Requirements                                      | Error Message                                                                                                                                                                                          |
 |----------------|-----------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Name           | Must be filled in, 1–50 characters long                   | -`"Name is required"` <br/>- `"Name cannot be empty"` <br/>-`"Name must be at least 1 character long"`<br/>- `"Name cannot exceed 50 characters"`                                                      |
+| Name           | Must be filled in, 1–50 characters long                   | -`"Name is required"` <br/>- `"Name cannot be empty"` <br/>-`"Name must be at least 1 character long"`<br/>- `"Name cannot exceed 50 characters"` <br/>- `"Invalid name"`                              |
 | Subject        | Must be filled in, valid                                  | -`"Subject is required"` <br/>- `"Subject cannot be empty"`<br/>- `"Subject cannot exceed 50 characters"` <br/>- `"Invalid subject"`                                                                   |
 | Email          | Must be a filled in, valid email address and unique       | -`"Email is required"` <br/>- `"Email cannot be empty"`<br/>- `"Email cannot exceed 255 characters"`  <br/>- `"Invalid email"`<br/>- `"Email already exists"`                                          |
 | Contact Number | Must be filled in, exactly 8 digits, no spaces and unique | -`"Contact number is required"`<br/>- `"Contact number cannot be empty"`<br/>- `"Contact number cannot exceed 8 characters"`  <br/>-`"Invalid contact number"`<br/>- `"Contact number already exists"` |

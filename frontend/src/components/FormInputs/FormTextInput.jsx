@@ -1,9 +1,12 @@
 import {Controller} from "react-hook-form";
 import {Box, TextField, Typography} from "@mui/material";
 
-const FormTextField = ({name, control, label, rules = {}, numericOnly = false}) => {
+const FormTextField = ({name, control, label, rules = {}, numericOnly = false, letterOnly = false}) => {
     const handleBeforeInput = (e) => {
         if (numericOnly && /\D/.test(e.data)) {
+            e.preventDefault();
+        }
+        if (letterOnly && /[^a-zA-Z ]/.test(e.data)) {
             e.preventDefault();
         }
     };

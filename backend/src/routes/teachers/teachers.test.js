@@ -440,6 +440,19 @@ describe("Teachers API", () => {
                 expect(res.body.error).toBe("Invalid contact number");
             });
 
+            test("for invalid name that contains numbers and special characters", async () => {
+                const res = await request(app)
+                    .post("/teachers")
+                    .send({
+                        name: "Nicole12$$",
+                        email: "nicole@gmail.com",
+                        subject: "English Language",
+                        contactNumber: "89564265"
+                    });
+                expect(res.status).toBe(400);
+                expect(res.body.error).toBe("Invalid name");
+            });
+
         })
     });
 });

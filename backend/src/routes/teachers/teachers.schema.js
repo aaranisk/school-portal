@@ -8,6 +8,9 @@ export const teacherSchema = Joi.object({
             if (!strValue) return helpers.error('string.empty');
             if (value.length < 1) return helpers.error('string.min', {limit: 1});
             if (value.length > 50) return helpers.error('string.max', {limit: 50})
+            if (!/^[A-Za-z ]+$/.test(strValue)) {
+                return helpers.error('string.pattern.base');
+            }
             return value;
         }),
     subject: Joi.string().required()

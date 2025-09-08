@@ -45,6 +45,7 @@ const AddTeacherForm = ({setDisplayAddTeacherForm}) => {
                     name="name"
                     control={control}
                     label="Name"
+                    letterOnly={true}
                     rules={{
                         validate: (value) => value?.trim() ? true : 'Name is required.',
                         minLength: {value: 1, message: 'Name must be at least 1 character'},
